@@ -1,0 +1,26 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "common.js",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "cookie-parser": "^1.4.4",
+    "supervisor": "^0.12.0"
+  },
+  "devDependencies": {
+    "body-parser": "^1.18.3",
+    "connect-mongo": "^2.0.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "md5-node": "^1.0.1",
+    "mongodb": "^3.1.13",
+    "multiparty": "^4.2.1"
+  },
+  "scripts": {
+    "dev": "supervisor express_demo/app"
+  },
+  "author": "",
+  "license": "ISC"
+}
