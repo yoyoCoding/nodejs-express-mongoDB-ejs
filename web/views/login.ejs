@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>login page</title>
+</head>
+<body>
+	<h3>login</h3>
+	<h3>这是ejs模板引擎</h3>
+	<ul>
+		<% for(var i = 0; i < list.length; i++) { %>
+		<li>name：<%=list[i].name%> && age：<%=list[i].age%></li>
+		<% } %>
+	</ul>
+
+	<hr>
+	
+	<form action="/doLogin" method="post">
+		<input type="text" name="username" placeholder="请输入用户名">
+		<br>
+		<input type="password" name="pswd" placeholder="请输入密码">
+		<br>
+		<!-- <input type="submit" value="登录"> -->
+		<input type="button" value="登录" id="ok">
+	</form>
+
+</body>
+<script type="text/javascript">
+	console.log('test')
+	var send = function(){
+		console.log('send')
+		var xhr = new XMLHttpRequest()
+		xhr.open('post','/doLogin')
+		xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded')
+		xhr.send('name=yyy&pswd=123456')
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				var res = JSON.parse(xhr.responseText)
+				console.log(res)
+				alert(res.msg)
+			}
+		}
+	}
+	var btn = document.getElementById('ok');
+	btn.onclick = send
+</script>
+</html>
