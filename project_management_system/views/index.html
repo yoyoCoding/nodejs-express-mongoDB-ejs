@@ -51,7 +51,7 @@
 					 				名称&nbsp;<input type="text" class="form-control" placeholder="Search">
 					 			</div>
 					 		  <button type="button" class="btn btn-default">开始搜索</button>
-					 		  <button type="button" class="btn btn-danger add-btn" data-toggle="modal" data-target="#myModal">新增</button>
+					 		  <button type="button" class="btn btn-danger add-btn" data-toggle="modal" data-target="#myModal" id="add-btn">新增</button>
 					 		</form>
 					 	</div>
 					</div>
@@ -127,7 +127,7 @@
 	        		<h4 class="modal-title">新增/编辑商品</h4>
 	      		</div>
 	      		<div class="modal-body">
-	        		<form class="form-horizontal" id="myForm" action="/addProduct" enctype="multipart/form-data" method="post">
+	        		<form class="form-horizontal" id="myForm" enctype="multipart/form-data">
 	        		  	<div class="form-group">
 	        		    	<label class="col-sm-2 control-label">商品名称</label>
 	        		    	<div class="col-sm-5">

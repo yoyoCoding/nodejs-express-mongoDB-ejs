@@ -116,11 +116,13 @@ app.post('/logout', (req, res) => {
 
 // 新增产品操作
 app.post('/addProduct', (req, res) => {
+	console.log('add')
 	let form = new multiparty.Form({
 		uploadDir: 'upload'
 	})
 	form.parse(req, (err, fields, files) => {
-		console.log(JSON.stringify(files))
+		// console.log(JSON.stringify(fields))
+		// console.log(JSON.stringify(files))
 		const query = {
 			title: fields.title[0],
 			price: fields.price[0],
@@ -140,7 +142,6 @@ app.post('/editProduct', (req, res) => {
 		uploadDir: 'upload'
 	})
 	form.parse(req, (err, fields, files) => {
-		console.log(JSON.stringify(files))
 		const query = {
 			title: fields.title[0],
 			price: fields.price[0],
