@@ -10,14 +10,14 @@ $(function(){
 
 	var submit = function(data) {
 		$.ajax({
-			url: '/doLogin',
+			url: '/admin/login/doLogin',
 			type: 'post',
 			data: data,
 			dataType: 'json',
 			success: function(res){
 				if(res.code == 200) {
 					alert('登录成功')
-					window.location.href = '/'
+					window.location.href = '/admin/product'
 				} else {
 					console.log(res.msg)
 				}

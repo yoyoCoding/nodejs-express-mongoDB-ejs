@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>商品管理系统</title>
+	<link rel="stylesheet" href="/static/lib/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/static/css/common.css">
+	<link rel="stylesheet" href="/static/css/index.css">
+</head>
+<body>
+	<div class="container-wrap">
+		<%- include ../common/header.html %>
+		<section class="container con-section">
+			<div class="col-lg-2 left-nav">
+				<ul class="outer-list">
+					<li class="item">
+						<a href="javascript:;">商品管理</a>
+						<ul class="inner-list">
+							<li><a class="active" href="javascript:;">商品列表</a></li>
+							<li><a href="javascript:;">增加商品</a></li>
+						</ul>
+					</li>
+					<li class="item">
+						<a href="javascript:;">商品分类管理</a>
+						<ul class="inner-list">
+							<li><a href="javascript:;">商品分类列表</a></li>
+							<li><a href="javascript:;">增加商品分类</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+
+			<div class="col-lg-10 content">
+				<!-- 面包屑导航 -->
+				<div class="nav-bar">
+					<ol class="breadcrumb">
+					  <li><a href="#">商品管理</a></li>
+					  <li class="active">商品列表</li>
+					</ol>
+				</div>
+
+				<!-- 搜索框 -->
+				<div class="search-wrap">
+					<div class="panel panel-default">
+					 	<div class="panel-heading">搜索</div>
+					 	<div class="panel-body">
+					 		<form class="form-inline">
+					 		 	<div class="form-group">
+					 				名称&nbsp;<input type="text" class="form-control" placeholder="Search">
+					 			</div>
+					 		  <button type="button" class="btn btn-default">开始搜索</button>
+					 		  <button type="button" class="btn btn-danger add-btn" id="add-btn">新增</button>
+					 		</form>
+					 	</div>
+					</div>
+				</div>
+				
+				<!-- 表格列表 -->
+				<div class="product-list">
+					<table class="table table-striped">
+						<tr>
+							<th>编号</th>
+							<th>图片</th>
+							<th>名称</th>
+							<th>价格</th>
+							<th>邮费</th>
+							<th>状态</th>
+							<th class="operator">操作</th>
+						</tr>
+						<% for(var i=0; i<list.length; i++){ %>
+						<tr>
+							<td><%= i+1 %></td>
+							<td>
+								<% if(list[i].pic) {%>
+								<img class="pic" src="/<%= list[i].pic %>" alt="图片">
+								<% } else {%>
+								-
+								<% } %>
+							</td>
+							<td><%= list[i].title %></td>
+							<td><%= list[i].price %></td>
+							<td><%= list[i].fee %></td>
+							<td>上架</td>
+							<td>
+								<div class="btn-group" role="group" aria-label="...">
+								  <button type="button" class="btn btn-sm btn-default edit-btn" data-id="<%= list[i]._id %>">修改</button>
+								  <button type="button" class="btn btn-sm btn-danger del-btn" data-id="<%= list[i]._id %>">删除</button>
+								</div>
+							</td>
+						</tr>
+						<% } %>
+					</table>
+					<div class="pagination-wrap">
+					 	<ul class="pagination">
+							<li>
+					      		<a href="#" aria-label="Previous">
+					        		<span aria-hidden="true">&laquo;</span>
+					      		</a>
+					    	</li>
+						    <li class="active"><a href="#">1</a></li>
+						    <li><a href="#">2</a></li>
+						    <li><a href="#">3</a></li>
+						    <li><a href="#">4</a></li>
+						    <li><a href="#">5</a></li>
+						    <li>
+						     	<a href="#" aria-label="Next">
+						       		<span aria-hidden="true">&raquo;</span>
+						     	</a>
+						    </li>
+					 	</ul>
+					</div>
+				</div>
+
+			</div>
+
+		</section>
+	</div>
+
+	<!-- 模态框 -->
+	<div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+	 	<div class="modal-dialog" role="document">
+	    	<div class="modal-content">
+	      		<div class="modal-header">
+	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        		<h4 class="modal-title">新增/编辑商品</h4>
+	      		</div>
+	      		<div class="modal-body">
+	        		<form class="form-horizontal" id="myForm" enctype="multipart/form-data">
+	        		  	<div class="form-group">
+	        		    	<label class="col-sm-2 control-label">商品名称</label>
+	        		    	<div class="col-sm-5">
+	        		      		<input type="text" class="form-control pd-name" name="title">
+	        		    	</div>
+	        		  	</div>
+	        		  	<div class="form-group pic-item">
+	        		    	<label class="col-sm-2 control-label">商品图片</label>
+	        		    	<div class="col-sm-5">
+	        		      		<input type="file" class="form-control pd-pic" name="pic">
+	        		    	</div>
+	        		  	</div>
+						<div class="form-group">
+	        		    	<label class="col-sm-2 control-label">商品价格</label>
+	        		    	<div class="col-sm-5">
+	        		      		<input type="number" class="form-control pd-price" name="price">
+	        		    	</div>
+	        		  	</div>
+	        		  	<div class="form-group">
+	        		    	<label class="col-sm-2 control-label">商品邮费</label>
+	        		    	<div class="col-sm-5">
+	        		      		<input type="number" class="form-control pd-fee" name="fee">
+	        		    	</div>
+	        		  	</div>
+	        		  	<div class="form-group">
+	        		    	<label class="col-sm-2 control-label">商品描述</label>
+	        		    	<div class="col-sm-8">
+	        		      		<textarea class="form-control pd-des" name="des"></textarea>
+	        		    	</div>
+	        		  	</div>
+	        		</form>
+	      		</div>
+	      		<div class="modal-footer">
+	        		<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	        		<button type="button" class="btn btn-primary sure-btn">确定</button>
+	      		</div>
+	  		</div><!-- /.modal-content -->
+	 	</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+</body>
+<script src="/static/lib/jquery.min.js"></script>
+<script src="/static/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/js/common.js"></script>
+<script src="/static/js/index.js"></script>
+</html>

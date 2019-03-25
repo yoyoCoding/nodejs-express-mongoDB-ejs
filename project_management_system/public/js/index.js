@@ -16,7 +16,7 @@ $(function(){
 
 	$('.product-list').on('click', '.del-btn', function () {
 		var params = {
-			url: '/delProduct',
+			url: '/admin/product/delProduct',
 			method: 'post',
 			data: {
 				id: $(this).data('id')
@@ -53,7 +53,7 @@ $(function(){
 
 		function fufillFields(){
 			var params = {
-				url: '/checkProduct',
+				url: '/admin/product/checkProduct',
 				method: 'get',
 				data: {
 					id: id
@@ -76,7 +76,7 @@ $(function(){
 		if(state == 1) {
 			var form = new FormData($('#myForm')[0]);
 			$.ajax({
-				url: '/addProduct',
+				url: '/admin/product/addProduct',
 				type: 'post',
 				data: form,
 				processData: false,
@@ -92,7 +92,7 @@ $(function(){
 			})
 		} else {
 			var params = {
-				url: '/editProduct',
+				url: '/admin/product/editProduct',
 				method: 'post',
 				data: {
 					id: id,
