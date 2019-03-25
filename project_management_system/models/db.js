@@ -1,4 +1,5 @@
 const MongoClient = require('mongodb').MongoClient
+const ObjectId = require('mongodb').ObjectId; // mongodb数据库_id对象方法
 
 const dbUrl = 'mongodb://localhost:27017'
 const dbName = 'yytest'
@@ -68,7 +69,7 @@ let db = {
 			})
 		})
 	},
-	delete(colName, query) {
+	deleteOne(colName, query) {
 		return new Promise((resolve, reject) => {
 			this._connect().then((client) => {
 				const db = client.db(dbName) // 数据库
@@ -87,4 +88,5 @@ let db = {
 	}
 }
 
-module.exports = db
+exports.db = db
+exports.ObjectId = ObjectId

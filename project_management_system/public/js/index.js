@@ -15,13 +15,11 @@ $(function(){
 	})
 
 	$('.product-list').on('click', '.del-btn', function () {
-		id = $(this).data('id');
-		console.log('id:' + id);
 		var params = {
 			url: '/delProduct',
 			method: 'post',
 			data: {
-				id: id
+				id: $(this).data('id')
 			}
 		};
 		submitFn(params, function (res) {
