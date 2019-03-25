@@ -51,13 +51,13 @@ let db = {
 			})
 		})
 	},
-	update(colName, query) {
+	updateOne(colName, query, updateFields) {
 		return new Promise((resolve, reject) => {
 			this._connect().then((client) => {
 				const db = client.db(dbName) // 数据库
 				const col = db.collection(colName) // 数据库表(collection)
 
-				col.update(query, (error, doc) => {
+				col.update(query, {$set: updateFields}, (error, doc) => {
 					if(error) {
 						console.log('修改数据失败')
 					} else {

@@ -4,6 +4,7 @@ const multiparty = require('multiparty') // 获取表单提交文件
 const session = require('express-session')
 const md5 = require('md5-node') // md5加密
 const db = require('./models/db') //数据库操作模块
+const ObjectId = require('mongodb').ObjectId; // mongodb数据库_id对象方法
 const utils = require('./models/utils') //工具类
 
 let app = express()
@@ -136,22 +137,39 @@ app.post('/addProduct', (req, res) => {
 	})
 })
 
-// 编辑产品操作
-app.post('/editProduct', (req, res) => {
-	let form = new multiparty.Form({
-		uploadDir: 'upload'
+// 查询产品信息操作
+app.get('/checkProduct', (req, res) => {
+	const query = {
+		_id: ObjectId(req.query.id)
+	}
+	db.find('product', query).then(doc => {
+		utils.end(res, '200', '', doc[0])
 	})
-	form.parse(req, (err, fields, files) => {
-		const query = {
-			title: fields.title[0],
-			price: fields.price[0],
-			fee: fields.fee[0],
-			pic: files.pic[0].path
-		}
-		db.insertOne('product', query).then(data => {
-			// {n:1, ok:1}
-			utils.end(res, '200', '添加成功')
-		})
+})
+
+// 修改产品信息
+app.post('/editProduct', (req, res) => {
+	const params = req.body
+	const query = {
+		_id: ObjectId(params.id)
+	}
+	const updateFields = {
+		title: params.title,
+		price: params.price,
+		fee: params.fee
+	}
+	db.update('product', query, updateFields).then(doc => {
+		utils.end(res, '200', '修改数据成功')
+	})
+})
+
+// 删除产品
+app.post('/delProduct', (req, res) => {
+	const query = {
+		_id: ObjectId(req.body.id)
+	}
+	db.delete('product', query).then(doc => {
+		utils.end(res, '200', '删除成功')
 	})
 })
 
