@@ -1,3 +1,13 @@
+安装mongodb
+开启数据库服务器(mongod --dbpath databasePath)
+创建yytest数据库(use yytest)
+创建admin和product表(db.admin.insert({user: 'admin', pswd: '123456'}))
+
+npm install
+node app
+localhost:3001
+
+
 node版本
 偶数为稳定版本
 奇数为非稳定版本
